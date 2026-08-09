@@ -19,7 +19,7 @@ class _AtkisTask(QgsTask):
     """Führt die ATKIS-Verarbeitung in einem Hintergrund-Thread aus."""
 
     def __init__(self, *, source_dir, hu_path, target_dir, study_area_path,
-                 hu_function_field, iface):
+                 hu_function_field, iface, on_finished=None):
         super().__init__("ATKIS Verarbeitung", QgsTask.CanCancel)
         self.source_dir = source_dir
         self.hu_path = hu_path
@@ -27,6 +27,7 @@ class _AtkisTask(QgsTask):
         self.study_area_path = study_area_path
         self.hu_function_field = hu_function_field
         self.iface = iface
+        self.on_finished = on_finished
         self.exception = None
 
     def run(self):
@@ -48,7 +49,16 @@ class _AtkisTask(QgsTask):
             return False
 
     def finished(self, result):
-        """Läuft im Haupt-Thread – sicher für UI-Zugriff."""
+        """Läuft im Haupt-Thread – sicher für UI-Zugriff.
+
+        Wird garantiert aufgerufen, während dieses Task-Objekt selbst noch
+        lebt (Qt ruft es direkt als Abschluss der Task auf) - daher der
+        richtige Ort, um den Laufend-Zustand beim Plugin zurückzusetzen,
+        statt das (ggf. später vom TaskManager zerstörte) Task-Objekt aus
+        einem späteren Plugin-Aufruf heraus erneut abzufragen.
+        """
+        if self.on_finished:
+            self.on_finished()
         if result:
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
@@ -91,6 +101,12 @@ class Data_Wizard:
         self.menu = self.tr(u'&IB-Tool')
         self.first_start = None
         self.task = None
+        # Eigener Laufend-Status statt self.task.status() abzufragen: Qt
+        # kann das zugrunde liegende C++-Objekt einer abgeschlossenen Task
+        # zerstören, auch während self.task (die Python-Referenz) noch
+        # existiert - ein späterer Zugriff auf self.task.status() würfe
+        # dann "wrapped C/C++ object ... has been deleted".
+        self._task_running = False
 
     def tr(self, message):
         return QCoreApplication.translate('Data_Wizard', message)
@@ -128,6 +144,11 @@ class Data_Wizard:
             self.iface.removePluginMenu(self.menu, action)
             self.iface.removeToolBarIcon(action)
 
+    def _on_task_finished(self):
+        """Von _AtkisTask.finished() im Haupt-Thread aufgerufen, sobald die
+        Verarbeitung endet (Erfolg, Abbruch oder Fehler)."""
+        self._task_running = False
+
     def run(self):
         if self.first_start:
             self.first_start = False
@@ -139,7 +160,7 @@ class Data_Wizard:
         if not result:
             return
 
-        if self.task is not None and self.task.status() in (QgsTask.Queued, QgsTask.Running):
+        if self._task_running:
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
                 "Eine Verarbeitung läuft bereits – bitte warten.",
@@ -193,7 +214,9 @@ class Data_Wizard:
             target_dir=target_dir,
             study_area_path=study_area_path or None,
             hu_function_field=hu_function_field,
-            iface=self.iface)
+            iface=self.iface,
+            on_finished=self._on_task_finished)
+        self._task_running = True
         QgsApplication.taskManager().addTask(self.task)
 
         self.iface.messageBar().pushMessage(
