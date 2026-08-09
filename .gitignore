@@ -1,0 +1,64 @@
+# === IDE ===
+.idea/
+.vscode/
+*.iws
+*.iml
+*.ipr
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+build/
+.eggs/
+
+# === Virtual Environments ===
+venv/
+.venv/
+env/
+
+# === Environment & Secrets ===
+.env
+.env.*
+
+# === Logs ===
+logs/
+*.log
+
+# === OS ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+nul
+
+# === Test Artefakte ===
+test/__pycache__/
+test/logs/
+test/*.gpkg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# === QGIS Plugin generierte Dateien ===
+# Kompilierte Übersetzungen (*.qm) sind Build-Artefakte aus i18n/*.ts.
+# resources.py wird bewusst NICHT ignoriert - siehe Hinweis unten.
+*.qm
+
+# === Projektspezifische Ausschlüsse ===
+# Backup/Kopie-Dateien
+*- Kopie*
+*_kopie*
+*_original_backup*
+
+# Debug-Skripte
+debug_*.py
+
+# Build-Artefakte
+dist/
+
+# Claude Code (lokale Einstellungen, nicht committen)
+/.claude/settings.local.json
+/.claude/settings.json

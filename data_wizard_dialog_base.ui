@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Data_WizardDialogBase</class>
+ <widget class="QDialog" name="Data_WizardDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>560</width>
+    <height>220</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>IB-Tool Data Wizard</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="verticalSpacing">
+      <number>8</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_source">
+       <property name="text">
+        <string>Quellordner:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEdit_source">
+       <property name="placeholderText">
+        <string>Ordner mit ATKIS SHP-Dateien ...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="btn_source">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="maximumWidth">
+        <number>30</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_hu">
+       <property name="text">
+        <string>Gebäudedatei:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEdit_hu">
+       <property name="placeholderText">
+        <string>Gebäudegrundrisse (SHP/GPKG) ...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="btn_hu">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="maximumWidth">
+        <number>30</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_studyarea">
+       <property name="text">
+        <string>Untersuchungsgebiet (optional):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEdit_studyarea">
+       <property name="placeholderText">
+        <string>Polygon zum Zuschneiden, leer = kein Zuschnitt ...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="btn_studyarea">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="maximumWidth">
+        <number>30</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_target">
+       <property name="text">
+        <string>Zielordner:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="lineEdit_target">
+       <property name="placeholderText">
+        <string>Ausgabeordner für HU.gpkg / RN.gpkg / AUX_L.gpkg ...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="btn_target">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="maximumWidth">
+        <number>30</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="button_box">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>button_box</sender>
+   <signal>accepted()</signal>
+   <receiver>Data_WizardDialogBase</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="source_label">
+     <x>248</x>
+     <y>120</y>
+    </hint>
+    <hint type="destination_label">
+     <x>157</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_box</sender>
+   <signal>rejected()</signal>
+   <receiver>Data_WizardDialogBase</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="source_label">
+     <x>316</x>
+     <y>120</y>
+    </hint>
+    <hint type="destination_label">
+     <x>286</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
