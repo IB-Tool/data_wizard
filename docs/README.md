@@ -117,14 +117,14 @@ point at `../../IB-Tool-3/docs/` — adjust if that folder gets renamed to
 `ibtool` per IBTool's own installation instructions, or installed
 elsewhere).
 
-| For... | See |
-|---|---|
-| The exact target specification Data Wizard's output must satisfy (field requirements, geometry types, minimum feature counts, the full validation checklist) | [`input-data.md`](../../IB-Tool-3/docs/input-data.md) |
-| The manual workflow this plugin automates (background/rationale for each step) | [`data-preparation.md`](../../IB-Tool-3/docs/data-preparation.md) |
-| Where to download raw ATKIS data per German state | [`data-sources.md`](../../IB-Tool-3/docs/data-sources.md) |
-| Running IBTool itself once Data Wizard's outputs are ready | [`quickstart.md`](../../IB-Tool-3/docs/quickstart.md) |
-| How IBTool's algorithm actually works | [`how-it-works.md`](../../IB-Tool-3/docs/how-it-works.md) |
-| IBTool's own code structure | [`plugin-architecture.md`](../../IB-Tool-3/docs/plugin-architecture.md) |
+| For... | See                                                                                |
+|---|------------------------------------------------------------------------------------|
+| The exact target specification Data Wizard's output must satisfy (field requirements, geometry types, minimum feature counts, the full validation checklist) | [`input-data.md`](../../IB-Tool-3/docs/input-data.md)                              |
+| The manual workflow this plugin automates (background/rationale for each step) | [`data-preparation.md`](../IB-Tool/IB-Tool-3/tree/master/docs/data-preparation.md) |
+| Where to download raw ATKIS data per German state | [`data-sources.md`](../IB-Tool/IB-Tool-3/tree/master/docsdata-sources.md)                          |
+| Running IBTool itself once Data Wizard's outputs are ready | [`quickstart.md`](../IB-Tool/IB-Tool-3/tree/master/docs/quickstart.md)                              |
+| How IBTool's algorithm actually works | [`how-it-works.md`](..//IB-Tool/IB-Tool-3/tree/master/docs/how-it-works.md)                         |
+| IBTool's own code structure | [`plugin-architecture.md`](../IB-Tool/IB-Tool-3/tree/master/docs/plugin-architecture.md)            |
 
 *(These links point into IBTool's own repository and are not updated from
 this side — if IBTool's docs move or get restructured, update the paths
