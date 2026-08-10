@@ -7,8 +7,16 @@
 
 import sys
 import getpass
-import xmlrpc.client
+# xmlrpc.client's default XML parser is vulnerable to XML attacks (entity
+# expansion, external entity injection, ...) if a response is ever malicious
+# or tampered with in transit. Hardened below via defusedxml's monkey-patch,
+# even though we only ever talk to the official QGIS plugin repository over
+# HTTPS. (requires: pip install defusedxml)
+import xmlrpc.client  # nosec B411
+import defusedxml.xmlrpc
 from optparse import OptionParser
+
+defusedxml.xmlrpc.monkey_patch()
 
 # Configuration
 PROTOCOL = 'https'

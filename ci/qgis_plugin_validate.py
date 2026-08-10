@@ -156,7 +156,8 @@ def validate_zip(zip_path: Path) -> None:
         suspicious_ext = {".exe", ".dll", ".so", ".dylib"}
         found_susp = [n for n in names if Path(n).suffix.lower() in suspicious_ext]
         if found_susp:
-            warn(f"zip contains binary-looking files: {found_susp[:10]}{'...' if len(found_susp)>10 else ''}")
+            warn(f"zip contains binary-looking files: {found_susp[:10]}"
+                 f"{'...' if len(found_susp) > 10 else ''}")
 
 
 def auto_detect_plugin_dir(repo_root: Path) -> Path | None:
