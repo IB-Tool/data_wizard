@@ -1,5 +1,9 @@
 # Data Wizard
 
+[![CI](https://github.com/IB-Tool/data_wizard/actions/workflows/ci.yml/badge.svg)](https://github.com/IB-Tool/data_wizard/actions/workflows/ci.yml)
+[![QGIS Plugin CI](https://github.com/IB-Tool/data_wizard/actions/workflows/qgis-plugin-ci.yml/badge.svg)](https://github.com/IB-Tool/data_wizard/actions/workflows/qgis-plugin-ci.yml)
+[![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL--2.0--or--later-blue.svg)](LICENSE)
+
 **QGIS plugin name:** IB-Tool-Data-Wizard · **Status:** experimental · **Version:** 0.1
 
 Data Wizard is a companion QGIS plugin to **[IBTool](https://github.com/IB-Tool/IB-Tool-3)**.
@@ -41,9 +45,15 @@ The plugin then appears under **Erweiterungen → IB-Tool → Data Wizard**
 
 ## Development
 
-No CI/automated test suite is set up (the geoprocessing logic in
-`processor.py` depends on a running QGIS environment). Verification is
-manual, inside QGIS — see [`docs/README.md` → Architecture](docs/README.md#architecture).
+CI runs the same two workflows as IBTool and ibtoolpartion — a Docker-based
+test suite (`ci.yml`) and lint/security/structure validation
+(`qgis-plugin-ci.yml`). See [`docs/contributing.md`](docs/contributing.md)
+for the full setup, local test commands, and release process.
+
+Note: the geoprocessing logic in `processor.py` (ATKIS mapping, reprojection,
+clipping) is not yet covered by dedicated tests — only the scaffolded dialog
+and environment tests exist so far. See
+[`docs/contributing.md` → Testing](docs/contributing.md#testing).
 
 This plugin's own design specs and implementation plans live in
 `docs/superpowers/specs/` and `docs/superpowers/plans/`.

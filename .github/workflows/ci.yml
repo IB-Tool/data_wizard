@@ -1,0 +1,56 @@
+# CI with Docker-based QGIS test runner (Dockerfile at the repo root).
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: |
+          docker build --pull -t qgis-plugin-test .
+
+      - name: Run tests with coverage
+        id: run_tests
+        continue-on-error: true
+        run: |
+          # Run container; coverage.xml is written to /plugins/data_wizard/ which maps
+          # to $(pwd) via the volume mount, so it appears on the host automatically.
+          docker run --rm \
+            -v $(pwd):/plugins/data_wizard \
+            qgis-plugin-test
+
+      - name: Verify and fix coverage report
+        run: |
+          if [ ! -f coverage.xml ]; then
+            echo "ERROR: coverage.xml not found after test run"
+            exit 1
+          fi
+          # Fix absolute container paths → relative repo paths for Codecov
+          sed -i 's|/plugins/data_wizard/||g' coverage.xml
+          echo "coverage.xml found and paths fixed"
+          head -5 coverage.xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
+
+      - name: Fail job if tests failed
+        if: steps.run_tests.outcome == 'failure'
+        run: |
+          echo "Tests failed — see output above."
+          exit 1
