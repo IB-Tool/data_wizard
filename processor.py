@@ -197,7 +197,7 @@ def _add_function_field_copy(layer, source_field_name, target_field_name, log=No
 
 
 def _write_gpkg(input_layers, output_path, geometry_type,
-                 force_singlepart, keep_fields, log=None, task=None):
+                force_singlepart, keep_fields, log=None, task=None):
     """
     Schreibt mehrere QgsVectorLayer-Objekte als ein GeoPackage.
 
@@ -263,7 +263,7 @@ def _write_gpkg(input_layers, output_path, geometry_type,
 # ── HU ───────────────────────────────────────────────────────────────────
 
 def _process_hu(hu_path, target_crs, clip_mask, target_dir, log=None,
-                 task=None, function_field=None):
+                task=None, function_field=None):
     log_ = log or (lambda m: None)
     log_("HU: lade Gebäudedatei ...")
     layer = QgsVectorLayer(hu_path, "hu", "ogr")
@@ -295,7 +295,7 @@ def _process_hu(hu_path, target_crs, clip_mask, target_dir, log=None,
 # ── RN ───────────────────────────────────────────────────────────────────
 
 def _process_rn(source_dir, target_crs, clip_mask, target_dir, log=None,
-                 task=None, ver01_l=None):
+                task=None, ver01_l=None):
     log_ = log or (lambda m: None)
     log_("RN: lade ver01_l + ver02_l ...")
     if ver01_l is None:
@@ -389,7 +389,7 @@ def _process_aux(source_dir, target_crs, clip_mask, target_dir, log=None, task=N
 # ── Einstiegspunkt ───────────────────────────────────────────────────────
 
 def process_atkis(source_dir, hu_path, target_dir, study_area_path=None,
-                   hu_function_field=None, feedback=None, task=None):
+                  hu_function_field=None, feedback=None, task=None):
     """
     :param source_dir: Ordner mit den ATKIS SHP-Dateien (ver01_l, ver02_l,
         ver03_l, veg02_f, veg03_f, gew01_f, gew01_l) — flach, ohne

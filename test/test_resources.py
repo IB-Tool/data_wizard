@@ -17,7 +17,6 @@ import unittest
 from qgis.PyQt.QtGui import QIcon
 
 
-
 class Data_WizardDialogTest(unittest.TestCase):
     """Test rerources work."""
 
@@ -35,10 +34,8 @@ class Data_WizardDialogTest(unittest.TestCase):
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
 
+
 if __name__ == "__main__":
-    suite = unittest.makeSuite(Data_WizardResourcesTest)
+    suite = unittest.makeSuite(Data_WizardDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-
-
-

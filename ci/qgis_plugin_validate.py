@@ -12,11 +12,7 @@ Exit codes:
 from __future__ import annotations
 
 import argparse
-import configparser
-import io
-import os
 import re
-import sys
 import zipfile
 from pathlib import Path
 
@@ -186,7 +182,9 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plugin-dir", type=Path, default=None, help="Path to the plugin folder (contains metadata.txt)")
     ap.add_argument("--zip", type=Path, nargs="+", default=None, help="Path(s) to release zip(s)")
-    ap.add_argument("--auto", action="store_true", help="Auto-detect plugin dir in repository (default if none provided)")
+    ap.add_argument(
+        "--auto", action="store_true",
+        help="Auto-detect plugin dir in repository (default if none provided)")
     args = ap.parse_args()
 
     if args.zip:

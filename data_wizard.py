@@ -10,7 +10,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import Qgis, QgsTask, QgsApplication, QgsMessageLog
 
-from .resources import *
+from .resources import *  # noqa: F401,F403 - registers Qt resources (icons) as a side effect
 from .data_wizard_dialog import Data_WizardDialog
 import os.path
 

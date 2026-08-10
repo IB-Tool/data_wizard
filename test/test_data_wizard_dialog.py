@@ -14,11 +14,11 @@ __copyright__ = 'Copyright 2026, Oliver Harig'
 
 import unittest
 
-from qgis.PyQt.QtGui import QDialogButtonBox, QDialog
+from qgis.PyQt.QtWidgets import QDialogButtonBox, QDialog
 
 from data_wizard_dialog import Data_WizardDialog
 
-from utilities import get_qgis_app
+from .utilities import get_qgis_app
 QGIS_APP = get_qgis_app()
 
 
@@ -48,8 +48,8 @@ class Data_WizardDialogTest(unittest.TestCase):
         result = self.dialog.result()
         self.assertEqual(result, QDialog.Rejected)
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(Data_WizardDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-
