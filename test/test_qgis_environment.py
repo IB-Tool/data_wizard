@@ -44,17 +44,21 @@ class QGISTest(unittest.TestCase):
             'SPHEROID["WGS_1984",6378137.0,298.257223563]],'
             'PRIMEM["Greenwich",0.0],UNIT["Degree",'
             '0.0174532925199433]]')
+        # Depending on the PROJ/GDAL version, an axis-order-less WGS84 WKT
+        # like this one may resolve to either identifier - both correctly
+        # describe the same WGS84 geographic CRS.
+        valid_auth_ids = ('EPSG:4326', 'OGC:CRS84')
+
         crs.createFromWkt(wkt)
         auth_id = crs.authid()
-        expected_auth_id = 'EPSG:4326'
-        self.assertEqual(auth_id, expected_auth_id)
+        self.assertIn(auth_id, valid_auth_ids)
 
         # now test for a loaded layer
         path = os.path.join(os.path.dirname(__file__), 'tenbytenraster.asc')
         title = 'TestRaster'
         layer = QgsRasterLayer(path, title)
         auth_id = layer.crs().authid()
-        self.assertEqual(auth_id, expected_auth_id)
+        self.assertIn(auth_id, valid_auth_ids)
 
 
 if __name__ == '__main__':
