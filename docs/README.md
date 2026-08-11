@@ -76,13 +76,6 @@ via IBTool's own **Check** button) stay outside the plugin.
 | `RN.gpkg` | `ver01_l`, `ver02_l` | Merged, forced singlepart |
 | `AUX_L.gpkg` | `ver03_l` (as-is); `veg02_f` (dissolve → lines); `veg03_f` filtered to OBJART 43005/43006 (dissolve → lines); `gew01_f` (lines); `gew01_l` (as-is) | Merged, forced singlepart |
 
-> **Naming note:** the auxiliary output is named `AUX_L.gpkg`, not
-> `AUX.gpkg` as in earlier versions of this plugin — `AUX` is a reserved
-> Windows device name (like `CON`, `NUL`, `COM1`), and creating a file
-> with that name hangs indefinitely on Windows. This has no effect on
-> IBTool itself: file names for `HU`/`RN`/`Part`/`Aux` are chosen freely
-> in IBTool's own dialog, there is no fixed naming requirement on that
-> side (see IBTool's `data-preparation.md` → Export).
 
 ## Out of Scope
 
@@ -103,10 +96,7 @@ via IBTool's own **Check** button) stay outside the plugin.
 | `data_wizard_dialog.py` / `data_wizard_dialog_base.ui` | Dialog UI — the four input fields, browse handlers, HU function-field detection/picker |
 | `processor.py` | All processing logic — CRS handling, clipping, the HU/RN/Aux mapping rules, GeoPackage writing. Pure functions, no UI code, so it runs safely inside the background `QgsTask` |
 
-There is no automated test suite exercising `processor.py`'s geoprocessing
-logic — it depends on a running QGIS environment, which the plugin's own
-`test/` folder (unmodified Plugin-Builder boilerplate) doesn't set up for
-this. Verification is manual, inside QGIS.
+
 
 ## Relationship to IBTool's Documentation
 
@@ -127,11 +117,6 @@ with access to that org.
 | How IBTool's algorithm actually works | [`how-it-works.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/how-it-works.md) |
 | IBTool's own code structure | [`plugin-architecture.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/plugin-architecture.md) |
 
-*(These links point into IBTool's own repository and are not updated from
-this side — if IBTool's docs move, get restructured, or the default
-branch changes from `master`, update the paths here accordingly. If you
-instead run both plugins from local sibling folders, e.g. for offline
-development, use relative paths like `../../IB-Tool-3/docs/...` instead.)*
 
 ## Plugin Installation Paths
 
@@ -141,13 +126,3 @@ for the per-OS paths; Data Wizard's own folder name (`data_wizard`) is
 already a valid Python identifier, so no renaming is needed for QGIS to
 load it (unlike IBTool's `IB-Tool-3` → `ibtool` rename requirement).
 
-## Development History
-
-This plugin's own design specs and implementation plans (written during
-its development, following the same process as IBTool's) live in
-`docs/superpowers/specs/` and `docs/superpowers/plans/` — specifically
-the `2026-08-09-data-preparation-automation*` and
-`2026-08-09-hu-function-field-detection*` files. The other files
-previously in those folders documented IBTool's own feature history and
-have been removed from this repository (see IB-Tool-3's own
-`docs/superpowers/` for that history).
