@@ -62,20 +62,24 @@ class _AtkisTask(QgsTask):
         if result:
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                f"Fertig – HU.gpkg, RN.gpkg und AUX_L.gpkg in: {self.target_dir}",
+                QCoreApplication.translate(
+                    'Data_Wizard',
+                    "Done – HU.gpkg, RN.gpkg and AUX_L.gpkg in: {}"
+                ).format(self.target_dir),
                 level=Qgis.Success,
                 duration=8)
         elif self.isCanceled():
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                "Verarbeitung abgebrochen.",
+                QCoreApplication.translate('Data_Wizard', "Processing cancelled."),
                 level=Qgis.Info,
                 duration=5)
         else:
-            msg = str(self.exception) if self.exception else "Unbekannter Fehler"
+            msg = str(self.exception) if self.exception else QCoreApplication.translate(
+                'Data_Wizard', "Unknown error")
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                f"Fehler: {msg}",
+                QCoreApplication.translate('Data_Wizard', "Error: {}").format(msg),
                 level=Qgis.Critical,
                 duration=10)
 
@@ -163,7 +167,7 @@ class Data_Wizard:
         if self._task_running:
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                "Eine Verarbeitung läuft bereits – bitte warten.",
+                self.tr("A process is already running – please wait."),
                 level=Qgis.Warning, duration=5)
             return
 
@@ -176,35 +180,36 @@ class Data_Wizard:
         if not source_dir or not hu_path or not target_dir:
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                "Bitte Quellordner, Gebäudedatei und Zielordner angeben.",
+                self.tr("Please specify source folder, building footprint file, "
+                        "and target folder."),
                 level=Qgis.Warning, duration=5)
             return
 
         if not os.path.isdir(source_dir):
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                f"Quellordner nicht gefunden: {source_dir}",
+                self.tr("Source folder not found: {}").format(source_dir),
                 level=Qgis.Warning, duration=5)
             return
 
         if not os.path.isfile(hu_path):
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                f"Gebäudedatei nicht gefunden: {hu_path}",
+                self.tr("Building footprint file not found: {}").format(hu_path),
                 level=Qgis.Warning, duration=5)
             return
 
         if not os.path.isdir(target_dir):
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                f"Zielordner nicht gefunden: {target_dir}",
+                self.tr("Target folder not found: {}").format(target_dir),
                 level=Qgis.Warning, duration=5)
             return
 
         if study_area_path and not os.path.isfile(study_area_path):
             self.iface.messageBar().pushMessage(
                 "Data Wizard",
-                f"Untersuchungsgebiet-Datei nicht gefunden: {study_area_path}",
+                self.tr("Study area file not found: {}").format(study_area_path),
                 level=Qgis.Warning, duration=5)
             return
 
@@ -221,5 +226,6 @@ class Data_Wizard:
 
         self.iface.messageBar().pushMessage(
             "Data Wizard",
-            "Verarbeitung läuft im Hintergrund – siehe Task-Manager und Log-Meldungen.",
+            self.tr("Processing running in background – see Task Manager and "
+                    "log messages."),
             level=Qgis.Info, duration=5)

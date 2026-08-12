@@ -22,14 +22,14 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_source">
        <property name="text">
-        <string>Quellordner:</string>
+        <string>Source folder:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="lineEdit_source">
        <property name="placeholderText">
-        <string>Ordner mit ATKIS SHP-Dateien ...</string>
+        <string>Folder with ATKIS SHP files ...</string>
        </property>
       </widget>
      </item>
@@ -46,14 +46,14 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_hu">
        <property name="text">
-        <string>Gebäudedatei:</string>
+        <string>Building footprint file:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="lineEdit_hu">
        <property name="placeholderText">
-        <string>Gebäudegrundrisse (SHP/GPKG) ...</string>
+        <string>Building footprints (SHP/GPKG) ...</string>
        </property>
       </widget>
      </item>
@@ -70,14 +70,14 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_studyarea">
        <property name="text">
-        <string>Untersuchungsgebiet (optional):</string>
+        <string>Study area (optional):</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="lineEdit_studyarea">
        <property name="placeholderText">
-        <string>Polygon zum Zuschneiden, leer = kein Zuschnitt ...</string>
+        <string>Polygon for clipping, empty = no clipping ...</string>
        </property>
       </widget>
      </item>
@@ -94,14 +94,14 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_target">
        <property name="text">
-        <string>Zielordner:</string>
+        <string>Target folder:</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QLineEdit" name="lineEdit_target">
        <property name="placeholderText">
-        <string>Ausgabeordner für HU.gpkg / RN.gpkg / AUX_L.gpkg ...</string>
+        <string>Output folder for HU.gpkg / RN.gpkg / AUX_L.gpkg ...</string>
        </property>
       </widget>
      </item>
