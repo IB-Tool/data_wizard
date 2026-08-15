@@ -36,6 +36,15 @@ WORKDIR /plugins/data_wizard
 # 7. Test-spezifische Python-Abhängigkeiten installieren
 RUN if [ -f requirements-test.txt ]; then pip3 install --break-system-packages -r requirements-test.txt; fi
 
+# 7b. Übersetzungen kompilieren (i18n/*.ts -> *.qm). Kompilierte .qm-Dateien
+#     sind laut .gitignore bewusst nicht versioniert (Build-Artefakt), ein
+#     frischer Checkout enthält also nur die .ts-Quelle - test_translations.py
+#     prüft aber auf das kompilierte .qm, muss also hier erzeugt werden statt
+#     sich auf eine lokal ggf. bereits vorhandene Datei zu verlassen.
+#     lrelease kommt mit qttools5-dev-tools, das im Basis-Image bereits
+#     installiert ist (QGIS-Abhängigkeit).
+RUN for ts in i18n/*.ts; do lrelease "$ts"; done
+
 # 8. QGIS Processing Provider explizit initialisieren
 RUN python3 -c "\
 import sys; \
