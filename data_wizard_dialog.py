@@ -7,7 +7,10 @@ from qgis.PyQt import QtWidgets
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'data_wizard_dialog_base.ui'))
 
-SKIP_FUNCTION_FIELD_LABEL = "— kein Funktionscode-Feld / überspringen —"
+
+def _skip_function_field_label():
+    return QtWidgets.QApplication.translate(
+        'Data_WizardDialog', "— no function code field / skip —")
 
 
 class Data_WizardDialog(QtWidgets.QDialog, FORM_CLASS):
@@ -23,28 +26,28 @@ class Data_WizardDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def _browse_source(self):
         folder = QtWidgets.QFileDialog.getExistingDirectory(
-            self, "Quellordner wählen", self.lineEdit_source.text())
+            self, self.tr("Select source folder"), self.lineEdit_source.text())
         if folder:
             self.lineEdit_source.setText(folder)
 
     def _browse_hu(self):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, "Gebäudedatei wählen", self.lineEdit_hu.text(),
-            "Vektordateien (*.shp *.gpkg)")
+            self, self.tr("Select building footprint file"), self.lineEdit_hu.text(),
+            self.tr("Vector files (*.shp *.gpkg)"))
         if path:
             self.lineEdit_hu.setText(path)
             self._resolve_hu_function_field(path)
 
     def _browse_studyarea(self):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, "Untersuchungsgebiet wählen", self.lineEdit_studyarea.text(),
-            "Vektordateien (*.shp *.gpkg)")
+            self, self.tr("Select study area"), self.lineEdit_studyarea.text(),
+            self.tr("Vector files (*.shp *.gpkg)"))
         if path:
             self.lineEdit_studyarea.setText(path)
 
     def _browse_target(self):
         folder = QtWidgets.QFileDialog.getExistingDirectory(
-            self, "Zielordner wählen", self.lineEdit_target.text())
+            self, self.tr("Select target folder"), self.lineEdit_target.text())
         if folder:
             self.lineEdit_target.setText(folder)
 
@@ -70,13 +73,14 @@ class Data_WizardDialog(QtWidgets.QDialog, FORM_CLASS):
             return
         # status == 'ambiguous': Nutzer soll die Spalte wählen
         field_names = result
-        options = [SKIP_FUNCTION_FIELD_LABEL] + field_names
+        skip_label = _skip_function_field_label()
+        options = [skip_label] + field_names
         choice, ok = QtWidgets.QInputDialog.getItem(
-            self, "Funktionscode-Feld wählen",
-            "Keine der erwarteten Spalten (fkt/gfkzshh/funktion) gefunden.\n"
-            "Welche Spalte enthält die ATKIS-Funktionscodes?",
+            self, self.tr("Select function code field"),
+            self.tr("None of the expected columns (fkt/gfkzshh/funktion) found.\n"
+                    "Which column contains the ATKIS function codes?"),
             options, 0, False)
-        if ok and choice != SKIP_FUNCTION_FIELD_LABEL:
+        if ok and choice != skip_label:
             self._hu_function_field = choice
 
     def get_source_dir(self):

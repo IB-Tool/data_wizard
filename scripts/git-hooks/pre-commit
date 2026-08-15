@@ -1,0 +1,76 @@
+#!/bin/sh
+# Pre-commit hook - fast local equivalent of .github/workflows/qgis-plugin-ci.yml
+# (structure validator, flake8, bandit, detect-secrets) plus the unit tier of
+# .github/workflows/ci.yml (`pytest -m unit`, no Docker/Processing needed).
+#
+# Deliberately does NOT run the full Docker-based integration/coverage suite
+# (ci.yml's `docker build && docker run`) - that takes minutes and still runs
+# in GitHub Actions on every push. Run it manually before a release:
+#   docker build -t qgis-plugin-test . && docker run --rm -v "$PWD:/plugins/data_wizard" qgis-plugin-test
+#
+# Installed via (run once per clone):
+#   git config core.hooksPath scripts/git-hooks
+#
+# Bypass in an emergency (use sparingly, fix the underlying issue instead):
+#   git commit --no-verify
+#
+# Override the QGIS install location if it differs from the default:
+#   git config data-wizard.qgisPrefix "D:/QGIS 3.40"
+
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+QGIS_PREFIX="$(git config --get data-wizard.qgisPrefix || true)"
+QGIS_PREFIX="${QGIS_PREFIX:-C:/Program Files/QGIS 3.40.0}"
+PY="$QGIS_PREFIX/apps/Python312/python.exe"
+QGIS_PYTEST="$QGIS_PREFIX/bin/python-qgis.bat"
+
+if [ ! -x "$PY" ]; then
+    echo "pre-commit: QGIS Python not found at '$PY'."
+    echo "pre-commit: set the correct path with:"
+    echo "  git config data-wizard.qgisPrefix \"<path to your QGIS install>\""
+    exit 1
+fi
+
+fail() {
+    echo ""
+    echo "pre-commit FAILED: $1"
+    echo "(bypass with 'git commit --no-verify' if you must, but fix this first)"
+    exit 1
+}
+
+echo "pre-commit: plugin structure validator..."
+"$PY" ci/qgis_plugin_validate.py --auto || fail "qgis_plugin_validate.py"
+
+echo "pre-commit: flake8..."
+"$PY" -m flake8 . || fail "flake8"
+
+echo "pre-commit: bandit..."
+"$PY" -m bandit -r . -ll -q || fail "bandit"
+
+echo "pre-commit: detect-secrets..."
+SECRETS_JSON="$(mktemp)"
+"$PY" -m detect_secrets scan --force-use-all-plugins > "$SECRETS_JSON"
+"$PY" - "$SECRETS_JSON" <<'PYEOF'
+import json, sys
+data = json.load(open(sys.argv[1]))
+findings = sum(len(v) for v in data.get('results', {}).values())
+if findings:
+    print("FAIL: detect-secrets found potential secrets:", findings)
+    for f, secrets in data.get('results', {}).items():
+        for s in secrets:
+            print(f"  {f}:{s['line_number']} [{s['type']}]")
+    sys.exit(2)
+print("OK: detect-secrets found no potential secrets")
+PYEOF
+DETECT_SECRETS_STATUS=$?
+rm -f "$SECRETS_JSON"
+[ "$DETECT_SECRETS_STATUS" -eq 0 ] || fail "detect-secrets"
+
+echo "pre-commit: unit tests (pytest -m unit)..."
+"$QGIS_PYTEST" -m pytest test/ -m unit -q || fail "unit tests"
+
+echo ""
+echo "pre-commit: all checks passed."

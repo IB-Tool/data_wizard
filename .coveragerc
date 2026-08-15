@@ -1,0 +1,15 @@
+# .coveragerc
+[run]
+source =
+    data_wizard
+    scripts
+omit =
+    */test/*
+    */tests/*
+    */__pycache__/*
+    */build/*
+    */dist/*
+    */venv/*
+    */.venv/*
+    */resources.py
+    */ui_*.py

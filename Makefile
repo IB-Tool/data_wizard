@@ -26,7 +26,10 @@
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
 # LOCALES = af
-LOCALES =
+# NOTE: scripts/compile-strings.sh and update-strings.sh build the path as
+# i18n/$(LOCALE).ts, so this must be the .ts file's basename, not just the
+# ISO code (the plugin's translator loads i18n/Data_Wizard_<locale>.qm).
+LOCALES = Data_Wizard_de
 
 # If locales are enabled, set the name of the lrelease binary on your system. If
 # you have trouble compiling the translations, you may have to specify the full path to

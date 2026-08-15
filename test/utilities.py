@@ -43,6 +43,23 @@ def get_qgis_app():
         s = QGIS_APP.showSettings()
         LOGGER.debug(s)
 
+        # processor.py's integration-tier functions (_reproject_if_needed,
+        # _clip_if_needed, _process_aux, ...) call processing.run() with
+        # native:* algorithms. Unlike QgsApplication.initQgis(), the native
+        # provider is NOT auto-registered - it requires the Processing
+        # Python plugin's own initialization. Without this, every
+        # processing.run() call in an @pytest.mark.integration test fails
+        # with "Algorithm native:... not found", regardless of whether
+        # QGIS_APP was created successfully.
+        try:
+            from processing.core.Processing import Processing
+            Processing.initialize()
+        except ImportError:
+            LOGGER.warning(
+                "processing plugin not importable - integration tests "
+                "that call processing.run() will fail. Ensure "
+                "<QGIS prefix>/python/plugins is on sys.path.")
+
     global PARENT  # pylint: disable=W0603
     if PARENT is None:
         # noinspection PyPep8Naming
