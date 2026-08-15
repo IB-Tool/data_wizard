@@ -79,8 +79,9 @@ via IBTool's own **Check** button) stay outside the plugin.
 
 ## Out of Scope
 
-- **`Part` (partitioning layer)** — produced by a separate, dedicated
-  tool; Data Wizard doesn't touch it.
+- **`Part` (partitioning layer)** — produced by the sibling plugin
+  **[IB-Tool (Partitioning)](https://github.com/IB-Tool/ibtoolpartion)**;
+  Data Wizard doesn't touch it.
 - **Filter file** — a separately maintained, largely static file; Data
   Wizard doesn't touch it.
 - **Validation** — Data Wizard does not re-implement IBTool's
