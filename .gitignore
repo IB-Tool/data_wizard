@@ -43,6 +43,16 @@ test/*.gpkg
 coverage.xml
 htmlcov/
 
+# === Testdaten: Sidecar-Dateien, die QGIS/GDAL beim Lesen selbst anlegt ===
+# Testdaten/ selbst ist bewusst eingecheckt (siehe docs/test-strategy.md),
+# aber diese Dateien entstehen erst beim Testlauf und gehoeren nicht ins Repo.
+*.qix
+*.shp.xml
+Testdaten/**/*.gpkg
+
+# Ablage fuer aussortierte Testdaten, die noch nicht geloescht wurden.
+_to_delete/
+
 # === QGIS Plugin generierte Dateien ===
 # Kompilierte Übersetzungen (*.qm) sind Build-Artefakte aus i18n/*.ts.
 # resources.py wird bewusst NICHT ignoriert - siehe Hinweis unten.

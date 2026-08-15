@@ -29,7 +29,9 @@ from .layer_factories import (  # noqa: E402
     make_polygon_layer, make_square_geom,
     write_layer_as_shp,
 )
-from .config import PROJECT_ROOT  # noqa: E402
+# Test data paths and the skip marker live in test/config.py, driven by
+# test_config.ini - do not re-derive them here.
+from .config import ATKIS_DIR, HU_SHP, requires_atkis_testdaten  # noqa: E402
 
 from data_wizard.processor import (  # noqa: E402
     _add_function_field_copy, _check_cancel,
@@ -40,22 +42,6 @@ from data_wizard.processor import (  # noqa: E402
 
 CRS_25833 = QgsCoordinateReferenceSystem("EPSG:25833")
 CRS_4326 = QgsCoordinateReferenceSystem("EPSG:4326")
-
-TESTDATEN_DIR = PROJECT_ROOT / "Testdaten"
-ATKIS_DIR = TESTDATEN_DIR / "ATKIS Basis DLM dataset"
-HU_SHP = TESTDATEN_DIR / "ALKIS Gebäude" / "GebauedeBauwerk.shp"
-
-_ATKIS_LAYERS = ("ver01_l", "ver02_l", "ver03_l", "veg02_f", "veg03_f",
-                 "gew01_f", "gew01_l")
-ATKIS_DATA_AVAILABLE = (
-    ATKIS_DIR.is_dir()
-    and all((ATKIS_DIR / f"{name}.shp").exists() for name in _ATKIS_LAYERS)
-    and HU_SHP.exists()
-)
-requires_atkis_testdaten = pytest.mark.skipif(
-    not ATKIS_DATA_AVAILABLE,
-    reason="Testdaten/ATKIS Basis DLM dataset or Testdaten/ALKIS Gebäude "
-           "missing - see docs/test-strategy.md")
 
 
 def _assert_valid_geometries(layer):
