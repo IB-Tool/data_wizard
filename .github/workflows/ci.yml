@@ -37,17 +37,24 @@ jobs:
             echo "ERROR: coverage.xml not found after test run"
             exit 1
           fi
-          # Fix absolute container paths → relative repo paths for Codecov
+          # Fix absolute container paths → relative repo paths
           sed -i 's|/plugins/data_wizard/||g' coverage.xml
           echo "coverage.xml found and paths fixed"
           head -5 coverage.xml
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+      # No Codecov project exists for this repository (see
+      # docs/test-strategy.md → Justified Exclusions and
+      # docs/contributing.md → Coverage Reporting). Coverage is produced
+      # locally and in the container but not uploaded to an external
+      # service — the report is kept as a downloadable CI artifact instead.
+      - name: Upload coverage report as CI artifact
+        uses: actions/upload-artifact@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.xml
-          fail_ci_if_error: true
+          name: coverage-report
+          path: |
+            coverage.xml
+            htmlcov/
+          retention-days: 30
 
       - name: Fail job if tests failed
         if: steps.run_tests.outcome == 'failure'
