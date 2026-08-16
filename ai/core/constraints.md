@@ -13,10 +13,10 @@ see [release-conventions.md](release-conventions.md).
 > not follow that split - its docstrings, comments, and `log()` messages are
 > German throughout, while identifiers are English. This is the actual,
 > current convention here, not an oversight to silently "correct" by copying
-> IB-Tool 3's rule - see the Testplan-data_wizard-ibtoolpartion.md
-> "Nebenbefund #4" note, which flags the inconsistency across the three
-> plugins as a separate decision to make deliberately, not as part of adding
-> tests/docs. The table below documents what this repository actually does.
+> IB-Tool 3's rule. Whether the three plugins should converge on one language
+> split is a deliberate decision to take on its own, not a side effect of
+> adding tests or docs. The table below documents what this repository
+> actually does.
 
 | Content Type | Language | Examples |
 |---|---|---|
