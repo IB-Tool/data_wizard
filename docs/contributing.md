@@ -2,12 +2,12 @@
 
 This document covers the development setup, CI/CD pipeline, test structure, and code quality tooling for Data Wizard.
 
-This plugin is a companion to **[IBTool](https://github.com/IB-Tool/IB-Tool-3)**
-(the main plugin) and follows the same development conventions as IBTool and
-[ibtoolpartion](https://github.com/IB-Tool/ibtoolpartion). For the canonical
+This plugin is a companion to **[IB-Tool 3](https://github.com/IB-Tool/IB-Tool-3)**
+(the main plugin) and follows the same development conventions as IB-Tool 3 and
+[IB-Tool (Partitioning)](https://github.com/IB-Tool/Partitioning). For the canonical
 description of the CI/test/release approach shared by all three IB-Tool
 plugins, see
-[IBTool's own `docs/contributing.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/contributing.md).
+[IB-Tool 3's own `docs/contributing.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/contributing.md).
 This document only covers what differs here.
 
 ---
@@ -34,7 +34,7 @@ Steps:
 4. Strips container-absolute paths from `coverage.xml`
 5. Uploads the coverage report to Codecov
 
-The image is a slimmed-down variant of IBTool's own `Dockerfile` — this
+The image is a slimmed-down variant of IB-Tool 3's own `Dockerfile` — this
 plugin has no runtime dependencies beyond QGIS's own processing algorithms
 (`processing`, `qgis.core`), so `numpy`/`scipy`/`networkx` are not installed.
 
@@ -42,7 +42,7 @@ plugin has no runtime dependencies beyond QGIS's own processing algorithms
 
 Test coverage is measured with `pytest-cov` (`.coveragerc` at the repo root: `source = data_wizard, scripts`). The `coverage.xml`/`htmlcov/` files are written by the container into the volume-mounted workspace, with container-absolute paths (`/plugins/data_wizard/`) stripped for portability.
 
-> **No Codecov upload.** Unlike IBTool and ibtoolpartion, this repository does
+> **No Codecov upload.** Unlike IB-Tool 3 and ibtoolpartion, this repository does
 > not have a Codecov project set up (`CODECOV_TOKEN` was never configured,
 > and the previous Codecov upload step in `ci.yml` could only ever fail with
 > `fail_ci_if_error: true`). This is a deliberate, documented exclusion — see
@@ -124,7 +124,7 @@ git commit --no-verify
 
 ## Release Process
 
-Releases are built with `scripts/create_release_zip.py`, mirroring IBTool's
+Releases are built with `scripts/create_release_zip.py`, mirroring IB-Tool 3's
 and ibtoolpartion's release process:
 
 ```bash
@@ -202,7 +202,7 @@ system Python does not:
 
 | File | Content |
 |------|---------|
-| [`docs/README.md`](README.md) | Full plugin documentation, including the relationship to IBTool |
+| [`docs/README.md`](README.md) | Full plugin documentation, including the relationship to IB-Tool 3 |
 | [`docs/CHANGELOG.md`](CHANGELOG.md) | Version history |
 | [`docs/test-strategy.md`](test-strategy.md) | Test philosophy, tier taxonomy, coverage targets, module-to-test mapping, gap backlog |
 | [`ai/core/testing-rules.md`](../ai/core/testing-rules.md) | Tactical test rules: geometry checks, QGIS NULL handling, test structure |

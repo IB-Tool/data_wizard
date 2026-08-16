@@ -10,11 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- `Dockerfile`, `ci/qgis_plugin_validate.py`, `scripts/create_release_zip.py` — Docker-based test execution and release ZIP building, mirroring IBTool's and ibtoolpartion's setup.
+- `Dockerfile`, `ci/qgis_plugin_validate.py`, `scripts/create_release_zip.py` — Docker-based test execution and release ZIP building, mirroring IB-Tool 3's and ibtoolpartion's setup.
 - `.github/workflows/ci.yml` (Docker-based tests + Codecov coverage) and `qgis-plugin-ci.yml` (flake8, bandit, detect-secrets, structure validation).
 - `pytest.ini`, `requirements-test.txt`, `.flake8`, `.bandit` — test and lint configuration.
 - `docs/contributing.md` — development setup, CI/CD pipeline, test structure, and release process, matching the other two IB-Tool plugins.
-- `ai/core/release-conventions.md` — release invariants shared with IBTool and ibtoolpartion.
+- `ai/core/release-conventions.md` — release invariants shared with IB-Tool 3 and ibtoolpartion.
 
 ### Fixed
 - `metadata.txt`: replaced placeholder `tracker`/`repository`/`homepage` URLs (`http://bugs`, `http://repo`, `http://homepage`) with the actual repository URLs; removed a stray unescaped line that was silently parsed as a bogus `category of the plugin` key; added a `changelog` entry (previously commented out).
@@ -25,4 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial project structure: plugin entry point, dialog, ATKIS-to-HU/RN/Aux processor, i18n, test scaffold.
-- `docs/README.md`: full documentation with cross-references to IBTool's own documentation.
+- `docs/README.md`: full documentation with cross-references to IB-Tool 3's own documentation.

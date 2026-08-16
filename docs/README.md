@@ -1,27 +1,27 @@
 # Data Wizard — Documentation
 
 **Data Wizard** (plugin name in QGIS: *IB-Tool-Data-Wizard*) is a companion
-QGIS plugin to **IBTool**. It automates the manual ATKIS-to-input-data
-workflow described in IBTool's own tutorial: given a folder of raw ATKIS
+QGIS plugin to **IB-Tool 3**. It automates the manual ATKIS-to-input-data
+workflow described in IB-Tool 3's own tutorial: given a folder of raw ATKIS
 Basis-DLM data and a separately supplied building-footprint file, it
-produces the `HU`, `RN`, and `Aux` GeoPackages IBTool needs — reprojecting,
+produces the `HU`, `RN`, and `Aux` GeoPackages IB-Tool 3 needs — reprojecting,
 optionally clipping, and mapping/merging the raw layers automatically.
 
 This document covers **Data Wizard itself** — installation is out of
 scope (see [Plugin Installation Paths](#plugin-installation-paths) below
 for the short version). For everything about the *target* data format,
-the underlying manual workflow, and IBTool's own usage, see
-[Relationship to IBTool's Documentation](#relationship-to-ibtools-documentation).
+the underlying manual workflow, and IB-Tool 3's own usage, see
+[Relationship to IB-Tool 3's Documentation](#relationship-to-ib-tool-3s-documentation).
 
 ---
 
 ## What It Does
 
-Data Wizard automates steps 2–7 of IBTool's data preparation tutorial —
+Data Wizard automates steps 2–7 of IB-Tool 3's data preparation tutorial —
 determining the project CRS, optional clipping to a study area, mapping
 raw ATKIS layers into `HU`/`RN`/`Aux`, and export as GeoPackage. Only
 step 1 (downloading the raw data yourself) and step 8 (final validation
-via IBTool's own **Check** button) stay outside the plugin.
+via IB-Tool 3's own **Check** button) stay outside the plugin.
 
 1. **Project CRS** is fixed from the CRS of `ver01_l.shp` in the source
    folder. Any other raw layer — including the building-footprint file
@@ -32,7 +32,7 @@ via IBTool's own **Check** button) stay outside the plugin.
    no study area is given, raw layers are processed at their full extent.
 3. **Mapping & merging** follows a fixed rule (see
    [Output Layers](#output-layers) below) — the same rule documented in
-   IBTool's `data-preparation.md`, now applied automatically instead of by
+   IB-Tool 3's `data-preparation.md`, now applied automatically instead of by
    hand in QGIS.
 4. **HU function-code field**: if the building file doesn't already carry
    `fkt`, `gfkzshh`, or `funktion`, the plugin scans its columns for one
@@ -62,10 +62,10 @@ via IBTool's own **Check** button) stay outside the plugin.
    progress and any warnings appear as log messages ("Data Wizard" in
    **View → Panels → Log Messages**) and in the message bar.
 4. On completion, `HU.gpkg`, `RN.gpkg`, and `AUX_L.gpkg` are in the target
-   folder. Load them into IBTool along with a `Part` layer and (optionally)
-   a filter file, and run IBTool's own **Check** — see
-   [IBTool's quickstart.md](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/quickstart.md)
-   for that step. Data Wizard does not run IBTool's validation checklist
+   folder. Load them into IB-Tool 3 along with a `Part` layer and (optionally)
+   a filter file, and run IB-Tool 3's own **Check** — see
+   [IB-Tool 3's quickstart.md](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/quickstart.md)
+   for that step. Data Wizard does not run IB-Tool 3's validation checklist
    itself.
 
 ## Output Layers
@@ -80,14 +80,14 @@ via IBTool's own **Check** button) stay outside the plugin.
 ## Out of Scope
 
 - **`Part` (partitioning layer)** — produced by the sibling plugin
-  **[IB-Tool (Partitioning)](https://github.com/IB-Tool/ibtoolpartion)**;
+  **[IB-Tool (Partitioning)](https://github.com/IB-Tool/Partitioning)**;
   Data Wizard doesn't touch it.
 - **Filter file** — a separately maintained, largely static file; Data
   Wizard doesn't touch it.
-- **Validation** — Data Wizard does not re-implement IBTool's
+- **Validation** — Data Wizard does not re-implement IB-Tool 3's
   `input-data.md` validation checklist. The one exception is a
   non-blocking log warning if HU ends up with no function-code field at
-  all. The authoritative check is IBTool's own **Check** button.
+  all. The authoritative check is IB-Tool 3's own **Check** button.
 
 ## Architecture
 
@@ -99,13 +99,13 @@ via IBTool's own **Check** button) stay outside the plugin.
 
 
 
-## Relationship to IBTool's Documentation
+## Relationship to IB-Tool 3's Documentation
 
-Data Wizard is a data-preparation front-end **for** IBTool — it doesn't
-replace IBTool's own documentation, which remains the authority on the
-target data format and on IBTool itself. Both plugins now live in their
+Data Wizard is a data-preparation front-end **for** IB-Tool 3 — it doesn't
+replace IB-Tool 3's own documentation, which remains the authority on the
+target data format and on IB-Tool 3 itself. Both plugins now live in their
 own GitHub repositories (both private, under the `IB-Tool` organization),
-so the links below point at IBTool's repository on GitHub rather than a
+so the links below point at IB-Tool 3's repository on GitHub rather than a
 local sibling folder — following them requires being logged into GitHub
 with access to that org.
 
@@ -114,16 +114,16 @@ with access to that org.
 | The exact target specification Data Wizard's output must satisfy (field requirements, geometry types, minimum feature counts, the full validation checklist) | [`input-data.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/input-data.md) |
 | The manual workflow this plugin automates (background/rationale for each step) | [`data-preparation.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/data-preparation.md) |
 | Where to download raw ATKIS data per German state | [`data-sources.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/data-sources.md) |
-| Running IBTool itself once Data Wizard's outputs are ready | [`quickstart.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/quickstart.md) |
-| How IBTool's algorithm actually works | [`how-it-works.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/how-it-works.md) |
-| IBTool's own code structure | [`plugin-architecture.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/plugin-architecture.md) |
+| Running IB-Tool 3 itself once Data Wizard's outputs are ready | [`quickstart.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/quickstart.md) |
+| How IB-Tool 3's algorithm actually works | [`how-it-works.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/how-it-works.md) |
+| IB-Tool 3's own code structure | [`plugin-architecture.md`](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/plugin-architecture.md) |
 
 
 ## Plugin Installation Paths
 
-Same as any QGIS plugin — see IBTool's
+Same as any QGIS plugin — see IB-Tool 3's
 [`plugin-architecture.md` → Plugin Installation Paths](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/plugin-architecture.md#plugin-installation-paths)
 for the per-OS paths; Data Wizard's own folder name (`data_wizard`) is
 already a valid Python identifier, so no renaming is needed for QGIS to
-load it (unlike IBTool's `IB-Tool-3` → `ibtool` rename requirement).
+load it (unlike IB-Tool 3's `IB-Tool-3` → `ibtool` rename requirement).
 
