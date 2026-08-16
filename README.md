@@ -6,9 +6,9 @@
 
 **QGIS plugin name:** IB-Tool-Data-Wizard · **Status:** experimental · **Version:** 0.1
 
-Data Wizard is a companion QGIS plugin to **[IBTool](https://github.com/IB-Tool/IB-Tool-3)**.
+Data Wizard is a companion QGIS plugin to **[IB-Tool 3](https://github.com/IB-Tool/IB-Tool-3)**.
 It automates turning raw ATKIS Basis-DLM data into the `HU`/`RN`/`Aux`
-GeoPackages IBTool needs — a workflow that previously had to be done by
+GeoPackages IB-Tool 3 needs — a workflow that previously had to be done by
 hand in QGIS.
 
 Given a folder of raw ATKIS shapefiles and a separately chosen
@@ -18,15 +18,15 @@ building-footprint file, Data Wizard:
   input automatically,
 - optionally clips everything to a study-area polygon,
 - maps and merges the raw layers into `HU.gpkg`, `RN.gpkg`, and
-  `AUX_L.gpkg` following IBTool's fixed mapping rules,
+  `AUX_L.gpkg` following IB-Tool 3's fixed mapping rules,
 - detects (or lets you pick) the building function-code column if it
   isn't already named `fkt`, `gfkzshh`, or `funktion`, and copies it into
   a correctly named column.
 
 **Full documentation:** [`docs/README.md`](docs/README.md) — inputs,
 usage, the exact mapping rules, architecture, and cross-references to
-IBTool's own documentation (target data format, the manual workflow this
-plugin automates, IBTool's usage).
+IB-Tool 3's own documentation (target data format, the manual workflow this
+plugin automates, IB-Tool 3's usage).
 
 ## Installation
 
@@ -41,11 +41,11 @@ Plugins**:
 | macOS | `~/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins` |
 
 The plugin then appears under **Erweiterungen → IB-Tool → Data Wizard**
-(grouped with IBTool itself).
+(grouped with IB-Tool 3 itself).
 
 ## Development
 
-CI runs the same two workflows as IBTool and ibtoolpartion — a Docker-based
+CI runs the same two workflows as IB-Tool 3 and ibtoolpartion — a Docker-based
 test suite (`ci.yml`) and lint/security/structure validation
 (`qgis-plugin-ci.yml`). See [`docs/contributing.md`](docs/contributing.md)
 for the full setup, local test commands, and release process.

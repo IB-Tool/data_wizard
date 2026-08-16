@@ -3,7 +3,7 @@
 This document is the single authoritative reference for **why** the test suite is structured the way it is, **how** to choose the right test tier for a new test, and **where** known coverage gaps exist. Consult it before writing any new test or assessing CI failures.
 
 This plugin follows the same test-strategy structure as its sibling
-[IB-Tool-3](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/test-strategy.md),
+[IB-Tool 3](https://github.com/IB-Tool/IB-Tool-3/blob/master/docs/test-strategy.md),
 scaled down to data_wizard's single-module scope (`processor.py`,
 `data_wizard.py`, `data_wizard_dialog.py`).
 
@@ -116,7 +116,7 @@ from .layer_factories import (
 
 ### Processing initialization (local runs)
 
-Unlike `QgsApplication.initQgis()`, the `native:*` algorithm provider is **not** auto-registered - it requires the Processing Python plugin's own `Processing.initialize()`. `test/utilities.py`'s `get_qgis_app()` calls this once, immediately after `initQgis()`, so every test file that calls `get_qgis_app()` gets a working `processing.run()` for free. Without this, every `@pytest.mark.integration` test fails with `Algorithm native:... not found`, regardless of whether `QgsApplication` initialized successfully. This is a deliberate deviation from IB-Tool-3's `test/utilities.py`, which does not do this - necessary here because `processor.py`'s pipeline uses `processing.run()` far more heavily than a typical IBTool geometry tool.
+Unlike `QgsApplication.initQgis()`, the `native:*` algorithm provider is **not** auto-registered - it requires the Processing Python plugin's own `Processing.initialize()`. `test/utilities.py`'s `get_qgis_app()` calls this once, immediately after `initQgis()`, so every test file that calls `get_qgis_app()` gets a working `processing.run()` for free. Without this, every `@pytest.mark.integration` test fails with `Algorithm native:... not found`, regardless of whether `QgsApplication` initialized successfully. This is a deliberate deviation from IB-Tool 3's `test/utilities.py`, which does not do this - necessary here because `processor.py`'s pipeline uses `processing.run()` far more heavily than a typical IB-Tool 3 geometry tool.
 
 ### Fixture scope rules
 

@@ -5,7 +5,7 @@ Guidelines for architectural decisions in the data_wizard project.
 ## Module Layout
 
 data_wizard is intentionally a single-module plugin, not a package-of-packages
-like IB-Tool-3:
+like IB-Tool 3:
 
 - **`processor.py`** - all ATKIS transformation logic, no QGIS UI or `iface`
   access. Pure function pipeline: load → reproject/clip → transform → write.
@@ -59,7 +59,7 @@ still proportionate to this plugin's scope.
   (`FUNCTION_CODE_PATTERN`, not an inline regex string)
 - **Pragmatic refactoring**: `processor.py` is ~430 LOC across 12 functions -
   this is proportionate to the plugin's scope; do not split it into a
-  package until it meaningfully grows beyond the ATKIS Basis-DLM → IBTool
+  package until it meaningfully grows beyond the ATKIS Basis-DLM → IB-Tool 3
   input pipeline it currently implements
 
 ## Testing Implications

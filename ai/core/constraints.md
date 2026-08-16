@@ -7,13 +7,13 @@ see [release-conventions.md](release-conventions.md).
 
 ## Language
 
-> **Deviation from IB-Tool-3:** IB-Tool-3's own `ai/core/constraints.md`
+> **Deviation from IB-Tool 3:** IB-Tool 3's own `ai/core/constraints.md`
 > mandates English for all code comments/docstrings, with German reserved for
 > UI strings and end-user log output. `processor.py` in this repository does
 > not follow that split - its docstrings, comments, and `log()` messages are
 > German throughout, while identifiers are English. This is the actual,
 > current convention here, not an oversight to silently "correct" by copying
-> IB-Tool-3's rule - see the Testplan-data_wizard-ibtoolpartion.md
+> IB-Tool 3's rule - see the Testplan-data_wizard-ibtoolpartion.md
 > "Nebenbefund #4" note, which flags the inconsistency across the three
 > plugins as a separate decision to make deliberately, not as part of adding
 > tests/docs. The table below documents what this repository actually does.
@@ -23,7 +23,7 @@ see [release-conventions.md](release-conventions.md).
 | Code identifiers (function/class/variable names) | **English** | `process_atkis`, `_reproject_if_needed`, `target_crs` |
 | `processor.py` docstrings, comments, `log()` messages | **German** (established convention - do not silently rewrite to English) | `"""Reprojiziert layer nach target_crs..."""` |
 | `data_wizard.py`, `data_wizard_dialog.py` | **English** (already English throughout) | |
-| Test files (`test/`) | **English** (docstrings, comments, assertions) | matches this repo's tests and IB-Tool-3's convention |
+| Test files (`test/`) | **English** (docstrings, comments, assertions) | matches this repo's tests and IB-Tool 3's convention |
 | Developer documentation (`ai/`, `docs/`) | **English** | All markdown files for AI/developer context |
 | Commit messages, CHANGELOG (technical) | **English** | |
 | UI strings (via `QCoreApplication.translate()`) | **English** source string, translated via `i18n/*.ts` (German provided) | Dialog labels, message bar text |

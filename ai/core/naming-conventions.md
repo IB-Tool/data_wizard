@@ -54,7 +54,7 @@ All other terms must be spelled out.
 | Test infrastructure | `snake_case.py` | `layer_factories.py`, `utilities.py` |
 | Configuration | `snake_case.*` | `pytest.ini`, `test_config.ini` |
 | Documentation | `kebab-case.md` | `test-strategy.md`, `qgis-api-rules.md` |
-| Output GeoPackages | `UPPER_SNAKE_CASE.gpkg` (fixed contract with IBTool) | `HU.gpkg`, `RN.gpkg`, `AUX_L.gpkg` |
+| Output GeoPackages | `UPPER_SNAKE_CASE.gpkg` (fixed contract with IB-Tool 3) | `HU.gpkg`, `RN.gpkg`, `AUX_L.gpkg` |
 
 ## Parameter Names
 

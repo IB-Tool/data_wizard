@@ -2,8 +2,8 @@
 
 These rules are binding for all code changes.
 
-Mirrors IBTool's own `ai/core/release-conventions.md` (the canonical version,
-see [IB-Tool-3](https://github.com/IB-Tool/IB-Tool-3/blob/master/ai/core/release-conventions.md)),
+Mirrors IB-Tool 3's own `ai/core/release-conventions.md` (the canonical version,
+see [IB-Tool 3](https://github.com/IB-Tool/IB-Tool-3/blob/master/ai/core/release-conventions.md)),
 adapted for this plugin's folder name and repository.
 
 ---
